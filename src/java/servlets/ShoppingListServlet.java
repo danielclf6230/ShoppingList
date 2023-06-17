@@ -24,12 +24,12 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        HttpSession session = request.getSession();
+        HttpSession sessions = request.getSession();
         
         
         //The action when user click the logout button
         if (action != null || action == "logout") {
-            session.invalidate();
+            sessions.invalidate();
             request.setAttribute("LogoutMessage", "You have successfully logged out");
         }
 
@@ -44,7 +44,7 @@ public class ShoppingListServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String name = request.getParameter("username");
-        HttpSession session = request.getSession();
+        HttpSession sessions = request.getSession();
 
         //The action when user click the Register button
         if (action != null && action.equals("register")) {
@@ -53,14 +53,14 @@ public class ShoppingListServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/register.jsp")
                         .forward(request, response);
             } else {
-                session.setAttribute("username", name);
+                sessions.setAttribute("username", name);
             }
         }
 
         
         String item = request.getParameter("item");
         String selectedItem = request.getParameter("selectedItem");
-        ArrayList<String> itemList = (ArrayList<String>) session.getAttribute("itemList");
+        ArrayList<String> itemList = (ArrayList<String>) sessions.getAttribute("itemList");
         
         
         //The action when user click the add button
@@ -72,7 +72,7 @@ public class ShoppingListServlet extends HttpServlet {
                 request.setAttribute("noitemMessage", "*Please enter an item name*");
             } else{
                 itemList.add(item);
-                session.setAttribute("itemList", itemList);
+                sessions.setAttribute("itemList", itemList);
             }
         }
         
@@ -93,7 +93,7 @@ public class ShoppingListServlet extends HttpServlet {
                 request.setAttribute("noitemMessage", "*Please choose an item to delete*");
             } else{
                 itemList.remove(selectedItem);
-                session.setAttribute("itemList", itemList);
+                sessions.setAttribute("itemList", itemList);
             }
         }
 
