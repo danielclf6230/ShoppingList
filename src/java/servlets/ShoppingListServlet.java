@@ -24,12 +24,12 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        HttpSession HttpSession = request.getSession();
+        HttpSession session = request.getSession();
         
         
         //The action when user click the logout button
         if (action != null || action == "logout") {
-            HttpSession.invalidate();
+            session.invalidate();
             request.setAttribute("LogoutMessage", "You have successfully logged out");
         }
 
